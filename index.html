@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Ehsaas – Where Emotion Becomes Expression</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --primary-color: #667eea;
+      --secondary-color: #764ba2;
+      --accent-color: #f093fb;
+      --dark-color: #1a1a2e;
+      --light-color: #f8f9fa;
+      --text-color: #333;
+      --border-radius: 12px;
+      --shadow: 0 10px 30px rgba(0,0,0,0.1);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--text-color);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Smooth scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Loading animation */
+    .loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease;
+    }
+
+    .loader.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-top: 3px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 4rem 1rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+      opacity: 0.1;
+    }
+
+    header h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+      animation: fadeInUp 1s ease;
+    }
+
+    header p {
+      font-size: clamp(1rem, 2.5vw, 1.5rem);
+      font-weight: 300;
+      position: relative;
+      z-index: 1;
+      animation: fadeInUp 1s ease 0.2s both;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Navigation */
+    nav {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    nav.scrolled {
+      background: rgba(255,255,255,0.98);
+      padding: 0.8rem;
+    }
+
+    nav a {
+      color: var(--text-color);
+      margin: 0 1.5rem;
+      text-decoration: none;
+      font-weight: 600;
+      position: relative;
+      transition: var(--transition);
+      padding: 0.5rem 0;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+      transition: var(--transition);
+      transform: translateX(-50%);
+    }
+
+    nav a:hover::after,
+    nav a.active::after {
+      width: 100%;
+    }
+
+    nav a:hover {
+      color: var(--primary-color);
+    }
+
+    /* Mobile menu */
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-color);
+    }
+
+    /* Sections */
+    section {
+      padding: 4rem 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: var(--transition);
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    section h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 2rem;
+      text-align: center;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+
+    /* Cards */
+    .card {
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+      transform: scaleX(0);
+      transition: var(--transition);
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    .card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: var(--border-radius);
+      margin-bottom: 1rem;
+      transition: var(--transition);
+    }
+
+    .card:hover img {
+      transform: scale(1.05);
+    }
+
+    .card p {
+      font-weight: 600;
+      color: var(--text-color);
+    }
+
+    /* Buttons */
+    .button {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: var(--border-radius);
+      text-decoration: none;
+      margin: 1rem 0.5rem;
+      font-weight: 600;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: var(--transition);
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+    }
+
+    .button:hover::before {
+      left: 100%;
+    }
+
+    /* Blog articles */
+    article {
+      background: white;
+      padding: 2rem;
+      margin: 2rem 0;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    article:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    }
+
+    article h3 {
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+
+    /* Contact section */
+    #contact {
+      background: linear-gradient(135deg, var(--light-color), white);
+      border-radius: var(--border-radius);
+      margin: 2rem auto;
+      text-align: center;
+    }
+
+    #contact a[href^="mailto"] {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    #contact a[href^="mailto"]:hover {
+      color: var(--secondary-color);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark-color);
+      color: var(--light-color);
+      padding: 3rem 1rem;
+      text-align: center;
+      position: relative;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+    }
+
+    /* Social icons */
+    .social-icons {
+      margin: 2rem 0;
+    }
+
+    .social-icons a {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 50px;
+      margin: 0 0.5rem;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+
+    .social-icons a:hover {
+      transform: translateY(-3px) scale(1.1);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+    }
+
+    /* Back to top button */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+      z-index: 1000;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .back-to-top:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      nav {
+        padding: 1rem;
+      }
+
+      nav a {
+        display: block;
+        margin: 0.5rem 0;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      section {
+        padding: 2rem 1rem;
+      }
+
+      .card {
+        padding: 1.5rem;
+      }
+    }
+
+    /* Animations */
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--light-color);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading screen -->
+  <div class="loader" id="loader">
+    <div class="spinner"></div>
+  </div>
+
+  <header>
+    <h1>Ehsaas</h1>
+    <p>Where Emotion Becomes Expression</p>
+  </header>
+  
+  <nav id="navbar">
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+      <i class="fas fa-bars"></i>
+    </button>
+    <a href="#about" onclick="setActive(this)">About</a>
+    <a href="#portfolio" onclick="setActive(this)">Portfolio</a>
+    <a href="#blog" onclick="setActive(this)">Blog</a>
+    <a href="#contact" onclick="setActive(this)">Contact</a>
+  </nav>
+
+  <section id="about">
+    <h2>Welcome to Ehsaas</h2>
+    <p>Every video is more than sound and visuals—it's a feeling. From soulful songs and heart-touching shorts to cinematic moments and music vibes that connect with the soul.</p>
+    <p style="font-size: 1.2rem; margin: 2rem 0;">
+      <i class="fas fa-music" style="color: var(--primary-color);"></i> Trending Songs | 
+      <i class="fas fa-film" style="color: var(--primary-color);"></i> Emotional Scenes | 
+      <i class="fas fa-mobile-alt" style="color: var(--primary-color);"></i> Viral Shorts | 
+      <i class="fas fa-heart" style="color: var(--primary-color);"></i> Stories That Touch the Heart
+    </p>
+    <a href="https://www.youtube.com/@Ehsaase" class="button" target="_blank" rel="noopener">
+      <i class="fab fa-youtube"></i> Join Our YouTube Family
+    </a>
+  </section>
+
+  <section id="portfolio">
+    <h2>Portfolio Highlights</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="https://via.placeholder.com/400x200/667eea/ffffff?text=Video+1" alt="Majalis‑e‑Arbaeen Procession" loading="lazy"/>
+        <p>Majalis‑e‑Arbaeen Procession</p>
+      </div>
+      <div class="card">
+        <img src="https://via.placeholder.com/400x200/764ba2/ffffff?text=Video+2" alt="Emotional Song Cover" loading="lazy"/>
+        <p>Emotional Song Cover</p>
+      </div>
+      <div class="card">
+        <img src="https://via.placeholder.com/400x200/f093fb/ffffff?text=Video+3" alt="Viral Visual Short" loading="lazy"/>
+        <p>Viral Visual Short</p>
+      </div>
+    </div>
+    <a href="https://www.youtube.com/@Ehsaase" class="button" target="_blank" rel="noopener">
+      <i class="fab fa-youtube"></i> Watch More on YouTube
+    </a>
+  </section>
+
+  <section id="blog">
+    <h2>Latest Blogs & Reflections</h2>
+    <article>
+      <h3><i class="fas fa-heart"></i> Why Emotion Moves Us</h3>
+      <p>A reflection on how powerful content stirs our hearts and creates lasting connections. Discover the psychology behind emotional storytelling and its impact on our daily lives.</p>
+      <button class="button" onclick="showModal('blog1')">
+        <i class="fas fa-book-open"></i> Read More
+      </button>
+    </article>
+    <article>
+      <h3><i class="fas fa-camera"></i> Behind the Scenes at Ehsaas</h3>
+      <p>Insights on capturing sacred moments, editing tips, and the creative process that brings our vision to life. Learn about our journey and the stories behind our most popular content.</p>
+      <button class="button" onclick="showModal('blog2')">
+        <i class="fas fa-book-open"></i> Read More
+      </button>
+    </article>
+  </section>
+
+  <section id="contact">
+    <h2>Get In Touch</h2>
+    <p style="font-size: 1.2rem;">
+      <i class="fas fa-envelope" style="color: var(--primary-color);"></i> 
+      Email: <a href="mailto:v8425136@gmail.com">v8425136@gmail.com</a>
+    </p>
+    <p>If you'd like to collaborate, share a story, or contribute creative ideas, we'd love to hear from you.</p>
+    
+    <div class="social-icons">
+      <a href="https://www.youtube.com/@Ehsaase" target="_blank" rel="noopener" title="YouTube">
+        <i class="fab fa-youtube"></i>
+      </a>
+      <a href="mailto:v8425136@gmail.com" title="Email">
+        <i class="fas fa-envelope"></i>
+      </a>
+    </div>
+    
+    <a href="https://www.youtube.com/@Ehsaase" class="button pulse" target="_blank" rel="noopener">
+      <i class="fab fa-youtube"></i> Subscribe on YouTube
+    </a>
+  </section>
+
+  <footer>
+    <div class="social-icons">
+      <a href="https://www.youtube.com/@Ehsaase" target="_blank" rel="noopener">
+        <i class="fab fa-youtube"></i>
+      </a>
+      <a href="mailto:v8425136@gmail.com">
+        <i class="fas fa-envelope"></i>
+      </a>
+    </div>
+    <p>Thank you for visiting Ehsaas. ✨ Feel it. Live it. Ehsaas.</p>
+    <p style="margin-top: 1rem; opacity: 0.7;">© 2024 Ehsaas. All rights reserved.</p>
+  </footer>
+
+  <!-- Back to top button -->
+  <button class="back-to-top" id="backToTop" onclick="scrollToTop()">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- Modal for blog posts -->
+  <div id="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10000; padding: 2rem;">
+    <div style="background: white; max-width: 800px; margin: 2rem auto; padding: 2rem; border-radius: var(--border-radius); max-height: 80vh; overflow-y: auto;">
+      <button onclick="closeModal()" style="float: right; background: none; border: none; font-size: 1.5rem; cursor: pointer;">×</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <script>
+    // Loading screen
+    window.addEventListener('load', () => {
+      const loader = document.getElementById('loader');
+      setTimeout(() => {
+        loader.classList.add('hidden');
+      }, 1000);
+    });
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      const backToTop = document.getElementById('backToTop');
+      
+      if (window.scrollY > 100) {
+        navbar.classList.add('scrolled');
+        backToTop.classList.add('visible');
+      } else {
+        navbar.classList.remove('scrolled');
+        backToTop.classList.remove('visible');
+      }
+    });
+
+    // Intersection Observer for animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    // Observe all sections
+    document.querySelectorAll('section').forEach(section => {
+      observer.observe(section);
+    });
+
+    // Active navigation
+    function setActive(element) {
+      document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+      element.classList.add('active');
+    }
+
+    // Smooth scroll to top
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+
+    // Modal functions
+    function showModal(blogId) {
+      const modal = document.getElementById('modal');
+      const content = document.getElementById('modalContent');
+      
+      const blogContent = {
+        blog1: `
+          <h2>Why Emotion Moves Us</h2>
+          <p>In the digital age, content that resonates emotionally stands out from the noise. At Ehsaas, we believe that every piece of content should touch the soul and create a lasting impact.</p>
+          <p>Emotional content works because it:</p>
+          <ul>
+            <li>Creates authentic connections with viewers</li>
+            <li>Triggers memorable experiences</li>
+            <li>Encourages sharing and engagement</li>
+            <li>Builds lasting relationships with audiences</li>
+          </ul>
+          <p>Our mission is to continue creating content that not only entertains but also inspires and moves people on a deeper level.</p>
+        `,
+        blog2: `
+          <h2>Behind the Scenes at Ehsaas</h2>
+          <p>Creating meaningful content requires passion, dedication, and attention to detail. Here's a glimpse into our creative process:</p>
+          <h3>Pre-Production</h3>
+          <p>Every video starts with an idea that has the potential to touch hearts. We spend considerable time researching, planning, and scripting to ensure our message is clear and impactful.</p>
+          <h3>Production</h3>
+          <p>During filming, we focus on capturing authentic moments and genuine emotions. Our team works tirelessly to ensure every frame tells a story.</p>
+          <h3>Post-Production</h3>
+          <p>The magic happens in editing, where we carefully craft each video to maximize emotional impact while maintaining high production quality.</p>
+        `
+      };
+      
+      content.innerHTML = blogContent[blogId] || '<p>Content not found.</p>';
+      modal.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('modal');
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+
+    // Close modal on outside click
+    document.getElementById('modal').addEventListener('click', (e) => {
+      if (e.target.id === 'modal') {
+        closeModal();
+      }
+    });
+
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+      const nav = document.querySelector('nav');
+      nav.classList.toggle('mobile-open');
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+
+    // Add smooth scrolling to navigation links
+    document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
