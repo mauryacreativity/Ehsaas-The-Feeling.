@@ -486,20 +486,20 @@ cursor: pointer;
 <h1>Connect with Us</h1>
 <p>We value every connection and would love to hear from you. Whether you have a collaboration idea, a question, or simply want to share your feedback, feel free to reach out to us through the form below.</p>
 
-<form id="contact-form" action="https://formspree.io/f/mjkoedkj" method="POST">
-<label for="name">Name</label>
-<input type="text" id="name" name="name" required>
-
-<label for="email">Email</label>
-<input type="email" id="email" name="email" required>
-
-<label for="subject">Subject</label>
-<input type="text" id="subject" name="subject" required>
-
-<label for="message">Message</label>
-<textarea id="message" name="message" rows="6" required></textarea>
-
-<button type="submit">Send Message</button>
+<form
+  action="https://formspree.io/f/mjkoedkj"
+  method="POST"
+>
+  <label>
+    Your email:
+    <input type="email" name="email">
+  </label>
+  <label>
+    Your message:
+    <textarea name="message"></textarea>
+  </label>
+  <!-- your other form fields go here -->
+  <button type="submit">Send</button>
 </form>
 <p id="form-status" style="margin-top: 1rem; text-align: center; font-weight: 500;"></p>
 
@@ -633,4 +633,5 @@ sendMessage();
 
 </body>
 </html>
+
 
