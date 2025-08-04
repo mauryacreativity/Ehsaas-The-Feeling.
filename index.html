@@ -485,20 +485,19 @@ cursor: pointer;
 <section id="contact">
 <h1>Connect with Us</h1>
 <p>We value every connection and would love to hear from you. Whether you have a collaboration idea, a question, or simply want to share your feedback, feel free to reach out to us through the form below.</p>
-
 <form
   action="https://formspree.io/f/mjkoedkj"
   method="POST"
+  enctype="multipart/form-data"
 >
   <label>
     Your email:
     <input type="email" name="email">
   </label>
   <label>
-    Your message:
-    <textarea name="message"></textarea>
+    Your file:
+    <input type="file" name="upload">
   </label>
-  <!-- your other form fields go here -->
   <button type="submit">Send</button>
 </form>
 <p id="form-status" style="margin-top: 1rem; text-align: center; font-weight: 500;"></p>
@@ -633,5 +632,6 @@ sendMessage();
 
 </body>
 </html>
+
 
 
