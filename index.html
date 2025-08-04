@@ -1,731 +1,635 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Ehsaas – Where Emotion Becomes Expression</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  
-  <style>
-    :root {
-      --primary-color: #667eea;
-      --secondary-color: #764ba2;
-      --accent-color: #f093fb;
-      --dark-color: #1a1a2e;
-      --light-color: #f8f9fa;
-      --text-color: #333;
-      --border-radius: 12px;
-      --shadow: 0 10px 30px rgba(0,0,0,0.1);
-      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ehsaase</title>
+<link rel="stylesheet" href="http://googleusercontent.com/css2?family=Montserrat:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap">
+<style>
+/* General Body and Typography */
+body {
+font-family: 'Montserrat', sans-serif;
+margin: 0;
+padding: 0;
+background-color: #1a1a1a;
+color: #e0e0e0;
+transition: background-color 1s ease-in-out;
+}
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+/* Landing Page - Logo Only */
+#landing-page {
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;
+cursor: pointer;
+background-color: #121212;
+transition: filter 1s ease-out, opacity 1s ease-out;
+}
 
-    body {
-      font-family: 'Poppins', sans-serif;
-      color: var(--text-color);
-      line-height: 1.7;
-      overflow-x: hidden;
-    }
+#landing-page img {
+max-width: 350px;
+filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.4));
+transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
 
-    /* Smooth scrolling */
-    html {
-      scroll-behavior: smooth;
-    }
+#landing-page img:hover {
+transform: scale(1.1);
+}
 
-    /* Loading animation */
-    .loader {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      transition: opacity 0.5s ease;
-    }
+/* Main Website Interface */
+#main-interface {
+display: none;
+opacity: 0;
+transition: opacity 1.5s ease-in-out;
+padding: 3rem 2rem;
+}
 
-    .loader.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
+/* Header and Navigation */
+header {
+background-color: #1a1a1a;
+padding: 1.5rem 4rem;
+display: flex;
+justify-content: space-between;
+align-items: center;
+box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+position: sticky;
+top: 0;
+z-index: 1000;
+}
 
-    .spinner {
-      width: 50px;
-      height: 50px;
-      border: 3px solid rgba(255,255,255,0.3);
-      border-top: 3px solid white;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
+.logo-header a {
+font-family: 'Playfair Display', serif;
+color: #ffd700;
+text-decoration: none;
+font-size: 2.2rem;
+font-weight: 700;
+letter-spacing: 2px;
+}
 
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
+nav ul {
+list-style: none;
+margin: 0;
+padding: 0;
+display: flex;
+gap: 2.5rem;
+}
 
-    /* Header */
-    header {
-      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-      color: white;
-      padding: 4rem 1rem;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
+nav ul li a {
+color: #e0e0e0;
+text-decoration: none;
+padding: 0.5rem 0;
+position: relative;
+font-weight: 500;
+letter-spacing: 1px;
+transition: color 0.3s ease;
+}
 
-    header::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-      opacity: 0.1;
-    }
+nav ul li a:hover {
+color: #ffd700;
+}
 
-    header h1 {
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      font-weight: 700;
-      margin-bottom: 1rem;
-      position: relative;
-      z-index: 1;
-      animation: fadeInUp 1s ease;
-    }
+nav ul li a::after {
+content: '';
+position: absolute;
+width: 100%;
+height: 2px;
+background-color: #ffd700;
+bottom: 0;
+left: 0;
+transform: scaleX(0);
+transform-origin: bottom right;
+transition: transform 0.4s ease-out;
+}
 
-    header p {
-      font-size: clamp(1rem, 2.5vw, 1.5rem);
-      font-weight: 300;
-      position: relative;
-      z-index: 1;
-      animation: fadeInUp 1s ease 0.2s both;
-    }
+nav ul li a:hover::after {
+transform: scaleX(1);
+transform-origin: bottom left;
+}
 
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+/* Main Content Area */
+main {
+max-width: 1200px;
+margin: 3rem auto;
+background-color: #242424;
+box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+border-radius: 15px;
+padding: 4rem;
+}
 
-    /* Navigation */
-    nav {
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(10px);
-      padding: 1rem;
-      text-align: center;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: var(--shadow);
-      transition: var(--transition);
-    }
+h1, h2 {
+font-family: 'Playfair Display', serif;
+color: #ffd700;
+border-bottom: 2px solid #3a3a3a;
+padding-bottom: 0.8rem;
+margin-top: 0;
+font-weight: 700;
+letter-spacing: 1px;
+}
 
-    nav.scrolled {
-      background: rgba(255,255,255,0.98);
-      padding: 0.8rem;
-    }
+p {
+line-height: 1.8;
+font-weight: 300;
+}
 
-    nav a {
-      color: var(--text-color);
-      margin: 0 1.5rem;
-      text-decoration: none;
-      font-weight: 600;
-      position: relative;
-      transition: var(--transition);
-      padding: 0.5rem 0;
-    }
+.video-container {
+margin-top: 3rem;
+position: relative;
+padding-bottom: 56.25%;
+height: 0;
+overflow: hidden;
+border-radius: 12px;
+box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+border: 2px solid #ffd700;
+}
 
-    nav a::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      width: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-      transition: var(--transition);
-      transform: translateX(-50%);
-    }
+.video-container iframe {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+}
 
-    nav a:hover::after,
-    nav a.active::after {
-      width: 100%;
-    }
+/* Forms and Buttons */
+form {
+background-color: #2b2b2b;
+padding: 3rem;
+border-radius: 12px;
+border: 1px solid #3a3a3a;
+margin-top: 2rem;
+}
 
-    nav a:hover {
-      color: var(--primary-color);
-    }
+form label {
+font-weight: 500;
+display: block;
+margin-bottom: 0.8rem;
+color: #e0e0e0;
+}
 
-    /* Mobile menu */
-    .mobile-menu-btn {
-      display: none;
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: var(--text-color);
-    }
+form input[type="text"],
+form input[type="password"],
+form input[type="email"],
+form textarea {
+width: 100%;
+padding: 1rem;
+margin-bottom: 2rem;
+border: 1px solid #444;
+background-color: #1a1a1a;
+color: #e0e0e0;
+border-radius: 6px;
+box-sizing: border-box;
+font-size: 1rem;
+transition: border-color 0.3s;
+}
 
-    /* Sections */
-    section {
-      padding: 4rem 1rem;
-      max-width: 1200px;
-      margin: 0 auto;
-      opacity: 0;
-      transform: translateY(30px);
-      transition: var(--transition);
-    }
+form input:focus,
+form textarea:focus {
+border-color: #ffd700;
+outline: none;
+}
 
-    section.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+button[type="submit"] {
+background: linear-gradient(45deg, #ffd700, #ffc400);
+color: #1a1a1a;
+padding: 1.2rem 2.5rem;
+border: none;
+border-radius: 50px;
+cursor: pointer;
+font-size: 1.2rem;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+font-weight: bold;
+letter-spacing: 1px;
+}
 
-    section h2 {
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 700;
-      margin-bottom: 2rem;
-      text-align: center;
-      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
+button[type="submit"]:hover {
+transform: translateY(-5px);
+box-shadow: 0 10px 20px rgba(255, 215, 0, 0.2);
+}
 
-    /* Grid */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin: 3rem 0;
-    }
+.contact-info {
+text-align: center;
+margin-top: 3rem;
+}
+.contact-info h2 {
+color: #ffd700;
+}
+.contact-info a {
+color: #ffd700;
+text-decoration: none;
+transition: color 0.3s;
+margin: 0 15px;
+font-weight: 500;
+}
+.contact-info a:hover {
+text-decoration: underline;
+}
 
-    /* Cards */
-    .card {
-      background: white;
-      border-radius: var(--border-radius);
-      padding: 2rem;
-      text-align: center;
-      box-shadow: var(--shadow);
-      transition: var(--transition);
-      position: relative;
-      overflow: hidden;
-    }
+/* Portfolio */
+.portfolio-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+gap: 3rem;
+margin-top: 3rem;
+}
+.portfolio-item {
+background-color: #2b2b2b;
+border-radius: 12px;
+overflow: hidden;
+box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.portfolio-item:hover {
+transform: translateY(-10px);
+box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5);
+}
+.portfolio-item .video-container {
+border-radius: 12px 12px 0 0;
+border: none;
+}
+.portfolio-item-content {
+padding: 2rem;
+}
+.portfolio-item-content h3 {
+margin-top: 0;
+color: #ffd700;
+font-family: 'Playfair Display', serif;
+font-weight: 700;
+}
 
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-      transform: scaleX(0);
-      transition: var(--transition);
-    }
+/* Footer */
+footer {
+text-align: center;
+padding: 2rem;
+background-color: #1a1a1a;
+color: #777;
+margin-top: 3rem;
+box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.3);
+}
 
-    .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-    }
+/* New CSS for section fade-in animation */
+section {
+opacity: 0;
+transform: translateY(20px);
+transition: opacity 1s ease-out, transform 1s ease-out;
+}
 
-    .card:hover::before {
-      transform: scaleX(1);
-    }
+section.visible {
+opacity: 1;
+transform: translateY(0);
+}
 
-    .card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-radius: var(--border-radius);
-      margin-bottom: 1rem;
-      transition: var(--transition);
-    }
+/* --- Public Notice System CSS --- */
+.notice-board {
+background-color: #2b2b2b;
+border-left: 5px solid #ffd700;
+padding: 1.5rem 2rem;
+margin-top: 2rem;
+border-radius: 8px;
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
 
-    .card:hover img {
-      transform: scale(1.05);
-    }
+.notice-board h2 {
+color: #ffd700;
+font-family: 'Montserrat', sans-serif;
+border-bottom: none;
+padding-bottom: 0;
+margin-bottom: 1rem;
+}
 
-    .card p {
-      font-weight: 600;
-      color: var(--text-color);
-    }
+.notice-board p {
+margin: 0.5rem 0;
+font-size: 1rem;
+color: #ccc;
+}
 
-    /* Buttons */
-    .button {
-      display: inline-block;
-      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-      color: white;
-      padding: 1rem 2rem;
-      border-radius: var(--border-radius);
-      text-decoration: none;
-      margin: 1rem 0.5rem;
-      font-weight: 600;
-      transition: var(--transition);
-      position: relative;
-      overflow: hidden;
-      border: none;
-      cursor: pointer;
-      font-family: inherit;
-    }
+/* --- AI Support System CSS --- */
+.chat-container {
+position: fixed;
+bottom: 30px;
+right: 30px;
+z-index: 2000;
+}
 
-    .button::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition: var(--transition);
-    }
+.chat-bubble {
+width: 60px;
+height: 60px;
+background: linear-gradient(45deg, #ffd700, #ffc400);
+border-radius: 50%;
+display: flex;
+justify-content: center;
+align-items: center;
+cursor: pointer;
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+transition: transform 0.3s ease;
+}
 
-    .button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
-    }
+.chat-bubble:hover {
+transform: scale(1.1);
+}
 
-    .button:hover::before {
-      left: 100%;
-    }
+.chat-bubble img {
+width: 30px;
+height: 30px;
+filter: invert(1);
+}
 
-    /* Blog articles */
-    article {
-      background: white;
-      padding: 2rem;
-      margin: 2rem 0;
-      border-radius: var(--border-radius);
-      box-shadow: var(--shadow);
-      transition: var(--transition);
-    }
+.chat-window {
+width: 350px;
+height: 450px;
+background-color: #2b2b2b;
+border-radius: 15px;
+box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+position: absolute;
+bottom: 80px;
+right: 0;
+display: none; /* Hidden by default */
+flex-direction: column;
+overflow: hidden;
+}
 
-    article:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-    }
+.chat-header {
+background-color: #1a1a1a;
+color: #e0e0e0;
+padding: 1rem;
+border-bottom: 1px solid #3a3a3a;
+text-align: center;
+font-weight: 500;
+}
 
-    article h3 {
-      color: var(--primary-color);
-      margin-bottom: 1rem;
-      font-size: 1.5rem;
-    }
+.chat-messages {
+flex-grow: 1;
+padding: 1rem;
+overflow-y: auto;
+}
 
-    /* Contact section */
-    #contact {
-      background: linear-gradient(135deg, var(--light-color), white);
-      border-radius: var(--border-radius);
-      margin: 2rem auto;
-      text-align: center;
-    }
+.chat-messages .message {
+margin-bottom: 1rem;
+padding: 0.75rem;
+border-radius: 10px;
+max-width: 80%;
+}
 
-    #contact a[href^="mailto"] {
-      color: var(--primary-color);
-      text-decoration: none;
-      font-weight: 600;
-      transition: var(--transition);
-    }
+.chat-messages .user-message {
+background-color: #ffd700;
+color: #1a1a1a;
+margin-left: auto;
+}
 
-    #contact a[href^="mailto"]:hover {
-      color: var(--secondary-color);
-    }
+.chat-messages .bot-message {
+background-color: #444;
+color: #e0e0e0;
+margin-right: auto;
+}
 
-    /* Footer */
-    footer {
-      background: var(--dark-color);
-      color: var(--light-color);
-      padding: 3rem 1rem;
-      text-align: center;
-      position: relative;
-    }
+.chat-input {
+display: flex;
+padding: 1rem;
+border-top: 1px solid #3a3a3a;
+}
 
-    footer::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
-    }
+.chat-input input {
+flex-grow: 1;
+padding: 0.75rem;
+border: 1px solid #444;
+background-color: #1a1a1a;
+color: #e0e0e0;
+border-radius: 20px;
+margin-right: 0.5rem;
+}
 
-    /* Social icons */
-    .social-icons {
-      margin: 2rem 0;
-    }
-
-    .social-icons a {
-      display: inline-block;
-      width: 50px;
-      height: 50px;
-      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-      color: white;
-      border-radius: 50%;
-      text-align: center;
-      line-height: 50px;
-      margin: 0 0.5rem;
-      transition: var(--transition);
-      text-decoration: none;
-    }
-
-    .social-icons a:hover {
-      transform: translateY(-3px) scale(1.1);
-      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
-    }
-
-    /* Back to top button */
-    .back-to-top {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      width: 50px;
-      height: 50px;
-      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-      color: white;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      opacity: 0;
-      visibility: hidden;
-      transition: var(--transition);
-      z-index: 1000;
-    }
-
-    .back-to-top.visible {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .back-to-top:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
-    }
-
-    /* Responsive design */
-    @media (max-width: 768px) {
-      .mobile-menu-btn {
-        display: block;
-      }
-
-      nav {
-        padding: 1rem;
-      }
-
-      nav a {
-        display: block;
-        margin: 0.5rem 0;
-      }
-
-      .grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-      }
-
-      section {
-        padding: 2rem 1rem;
-      }
-
-      .card {
-        padding: 1.5rem;
-      }
-    }
-
-    /* Animations */
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.7; }
-    }
-
-    .pulse {
-      animation: pulse 2s infinite;
-    }
-
-    /* Custom scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: var(--light-color);
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-      border-radius: 4px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
-    }
-  </style>
+.chat-input button {
+background: #ffd700;
+color: #1a1a1a;
+border: none;
+border-radius: 50%;
+width: 40px;
+height: 40px;
+cursor: pointer;
+}
+</style>
 </head>
 <body>
-  <!-- Loading screen -->
-  <div class="loader" id="loader">
-    <div class="spinner"></div>
-  </div>
 
-  <header>
-    <h1>Ehsaas</h1>
-    <p>Where Emotion Becomes Expression</p>
-  </header>
-  
-  <nav id="navbar">
-    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-      <i class="fas fa-bars"></i>
-    </button>
-    <a href="#about" onclick="setActive(this)">About</a>
-    <a href="#portfolio" onclick="setActive(this)">Portfolio</a>
-    <a href="#blog" onclick="setActive(this)">Blog</a>
-    <a href="#contact" onclick="setActive(this)">Contact</a>
-  </nav>
+<div id="landing-page">
+<img src="https://via.placeholder.com/350x175.png?text=Ehsaase+Logo+VIP" alt="Ehsaase Logo">
+</div>
 
-  <section id="about">
-    <h2>Welcome to Ehsaas</h2>
-    <p>Every video is more than sound and visuals—it's a feeling. From soulful songs and heart-touching shorts to cinematic moments and music vibes that connect with the soul.</p>
-    <p style="font-size: 1.2rem; margin: 2rem 0;">
-      <i class="fas fa-music" style="color: var(--primary-color);"></i> Trending Songs | 
-      <i class="fas fa-film" style="color: var(--primary-color);"></i> Emotional Scenes | 
-      <i class="fas fa-mobile-alt" style="color: var(--primary-color);"></i> Viral Shorts | 
-      <i class="fas fa-heart" style="color: var(--primary-color);"></i> Stories That Touch the Heart
-    </p>
-    <a href="https://www.youtube.com/@Ehsaase" class="button" target="_blank" rel="noopener">
-      <i class="fab fa-youtube"></i> Join Our YouTube Family
-    </a>
-  </section>
+<div id="main-interface">
+<header>
+<div class="logo-header">
+<a href="#home">Ehsaase</a>
+</div>
+<nav>
+<ul>
+<li><a href="#home">Home</a></li>
+<li><a href="#about">About</a></li>
+<li><a href="#portfolio">Portfolio</a></li>
+<li><a href="#contact">Contact</a></li>
+<li><a href="#">Login</a></li>
+</ul>
+</nav>
+</header>
 
-  <section id="portfolio">
-    <h2>Portfolio Highlights</h2>
-    <div class="grid">
-      <div class="card">
-        <img src="https://via.placeholder.com/400x200/667eea/ffffff?text=Video+1" alt="Majalis‑e‑Arbaeen Procession" loading="lazy"/>
-        <p>Majalis‑e‑Arbaeen Procession</p>
-      </div>
-      <div class="card">
-        <img src="https://via.placeholder.com/400x200/764ba2/ffffff?text=Video+2" alt="Emotional Song Cover" loading="lazy"/>
-        <p>Emotional Song Cover</p>
-      </div>
-      <div class="card">
-        <img src="https://via.placeholder.com/400x200/f093fb/ffffff?text=Video+3" alt="Viral Visual Short" loading="lazy"/>
-        <p>Viral Visual Short</p>
-      </div>
-    </div>
-    <a href="https://www.youtube.com/@Ehsaase" class="button" target="_blank" rel="noopener">
-      <i class="fab fa-youtube"></i> Watch More on YouTube
-    </a>
-  </section>
+<main>
+<section id="home">
+<h1>Welcome to the official Ehsaase website.</h1>
+<p>This is the exclusive online home for the band Ehsaase. Immerse yourself in our music, explore our cinematic videos, and connect with a community that appreciates art in its purest form.</p>
 
-  <section id="blog">
-    <h2>Latest Blogs & Reflections</h2>
-    <article>
-      <h3><i class="fas fa-heart"></i> Why Emotion Moves Us</h3>
-      <p>A reflection on how powerful content stirs our hearts and creates lasting connections. Discover the psychology behind emotional storytelling and its impact on our daily lives.</p>
-      <button class="button" onclick="showModal('blog1')">
-        <i class="fas fa-book-open"></i> Read More
-      </button>
-    </article>
-    <article>
-      <h3><i class="fas fa-camera"></i> Behind the Scenes at Ehsaas</h3>
-      <p>Insights on capturing sacred moments, editing tips, and the creative process that brings our vision to life. Learn about our journey and the stories behind our most popular content.</p>
-      <button class="button" onclick="showModal('blog2')">
-        <i class="fas fa-book-open"></i> Read More
-      </button>
-    </article>
-  </section>
+<div class="notice-board">
+<h2>Public Notice</h2>
+<p><strong>New Album Release:</strong> Our latest album, "Echoes of Eternity," is now available for streaming on all major platforms! Thank you for your continued support.</p>
+<p><strong>Live Performance:</strong> We will be performing live at the Grand Theater on October 25th. Tickets are available now. Hope to see you there!</p>
+</div>
 
-  <section id="contact">
-    <h2>Get In Touch</h2>
-    <p style="font-size: 1.2rem;">
-      <i class="fas fa-envelope" style="color: var(--primary-color);"></i> 
-      Email: <a href="mailto:v8425136@gmail.com">v8425136@gmail.com</a>
-    </p>
-    <p>If you'd like to collaborate, share a story, or contribute creative ideas, we'd love to hear from you.</p>
-    
-    <div class="social-icons">
-      <a href="https://www.youtube.com/@Ehsaase" target="_blank" rel="noopener" title="YouTube">
-        <i class="fab fa-youtube"></i>
-      </a>
-      <a href="mailto:v8425136@gmail.com" title="Email">
-        <i class="fas fa-envelope"></i>
-      </a>
-    </div>
-    
-    <a href="https://www.youtube.com/@Ehsaase" class="button pulse" target="_blank" rel="noopener">
-      <i class="fab fa-youtube"></i> Subscribe on YouTube
-    </a>
-  </section>
+<h2>Latest Release</h2>
+<div class="video-container">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/swqqHjL_ubw?si=fQ-Jd8TN-Vk_-Fw_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+</section>
 
-  <footer>
-    <div class="social-icons">
-      <a href="https://www.youtube.com/@Ehsaase" target="_blank" rel="noopener">
-        <i class="fab fa-youtube"></i>
-      </a>
-      <a href="mailto:v8425136@gmail.com">
-        <i class="fas fa-envelope"></i>
-      </a>
-    </div>
-    <p>Thank you for visiting Ehsaas. ✨ Feel it. Live it. Ehsaas.</p>
-    <p style="margin-top: 1rem; opacity: 0.7;">© 2024 Ehsaas. All rights reserved.</p>
-  </footer>
+<section id="about">
+<h1>Our Story</h1>
+<p>Ehsaase is a collective of visionary artists dedicated to crafting soulful music that resonates with the human spirit. Our journey began with a shared passion to create soundscapes that transcend the ordinary and touch the heart. We believe in the transformative power of music to connect people and tell stories that matter.</p>
+<p>Thank you for being a part of this extraordinary musical journey. Your support fuels our creativity and allows us to continue bringing our unique blend of sound and emotion to the world.</p>
+</section>
 
-  <!-- Back to top button -->
-  <button class="back-to-top" id="backToTop" onclick="scrollToTop()">
-    <i class="fas fa-arrow-up"></i>
-  </button>
+<section id="portfolio">
+<h1>The Portfolio</h1>
+<p>Explore our curated collection of videos and performances. Each piece is a meticulously crafted story, an intimate feeling, and an undeniable Ehsaase.</p>
 
-  <!-- Modal for blog posts -->
-  <div id="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10000; padding: 2rem;">
-    <div style="background: white; max-width: 800px; margin: 2rem auto; padding: 2rem; border-radius: var(--border-radius); max-height: 80vh; overflow-y: auto;">
-      <button onclick="closeModal()" style="float: right; background: none; border: none; font-size: 1.5rem; cursor: pointer;">×</button>
-      <div id="modalContent"></div>
-    </div>
-  </div>
+<div class="portfolio-grid">
+<div class="portfolio-item">
+<div class="video-container">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/swqqHjL_ubw?si=fQ-Jd8TN-Vk_-Fw_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+<div class="portfolio-item-content">
+<h3>Title of Your First Song</h3>
+<p>An intricate look at the inspiration, the mood, and the creative process behind this powerful performance.</p>
+</div>
+</div>
 
-  <script>
-    // Loading screen
-    window.addEventListener('load', () => {
-      const loader = document.getElementById('loader');
-      setTimeout(() => {
-        loader.classList.add('hidden');
-      }, 1000);
-    });
+<div class="portfolio-item">
+<div class="video-container">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/swqqHjL_ubw?si=fQ-Jd8TN-Vk_-Fw_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+<div class="portfolio-item-content">
+<h3>Title of Your Second Song</h3>
+<p>This piece captures a specific moment in time. Dive into the emotions it conveys and the message we aim to share with our audience.</p>
+</div>
+</div>
 
-    // Navbar scroll effect
-    window.addEventListener('scroll', () => {
-      const navbar = document.getElementById('navbar');
-      const backToTop = document.getElementById('backToTop');
-      
-      if (window.scrollY > 100) {
-        navbar.classList.add('scrolled');
-        backToTop.classList.add('visible');
-      } else {
-        navbar.classList.remove('scrolled');
-        backToTop.classList.remove('visible');
-      }
-    });
+</div>
+</section>
 
-    // Intersection Observer for animations
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
+<section id="contact">
+<h1>Connect with Us</h1>
+<p>We value every connection and would love to hear from you. Whether you have a collaboration idea, a question, or simply want to share your feedback, feel free to reach out to us through the form below.</p>
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, observerOptions);
+<form id="contact-form" action="https://formspree.io/f/your-form-id" method="POST">
+<label for="name">Name</label>
+<input type="text" id="name" name="name" required>
 
-    // Observe all sections
-    document.querySelectorAll('section').forEach(section => {
-      observer.observe(section);
-    });
+<label for="email">Email</label>
+<input type="email" id="email" name="email" required>
 
-    // Active navigation
-    function setActive(element) {
-      document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-      element.classList.add('active');
-    }
+<label for="subject">Subject</label>
+<input type="text" id="subject" name="subject" required>
 
-    // Smooth scroll to top
-    function scrollToTop() {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    }
+<label for="message">Message</label>
+<textarea id="message" name="message" rows="6" required></textarea>
 
-    // Modal functions
-    function showModal(blogId) {
-      const modal = document.getElementById('modal');
-      const content = document.getElementById('modalContent');
-      
-      const blogContent = {
-        blog1: `
-          <h2>Why Emotion Moves Us</h2>
-          <p>In the digital age, content that resonates emotionally stands out from the noise. At Ehsaas, we believe that every piece of content should touch the soul and create a lasting impact.</p>
-          <p>Emotional content works because it:</p>
-          <ul>
-            <li>Creates authentic connections with viewers</li>
-            <li>Triggers memorable experiences</li>
-            <li>Encourages sharing and engagement</li>
-            <li>Builds lasting relationships with audiences</li>
-          </ul>
-          <p>Our mission is to continue creating content that not only entertains but also inspires and moves people on a deeper level.</p>
-        `,
-        blog2: `
-          <h2>Behind the Scenes at Ehsaas</h2>
-          <p>Creating meaningful content requires passion, dedication, and attention to detail. Here's a glimpse into our creative process:</p>
-          <h3>Pre-Production</h3>
-          <p>Every video starts with an idea that has the potential to touch hearts. We spend considerable time researching, planning, and scripting to ensure our message is clear and impactful.</p>
-          <h3>Production</h3>
-          <p>During filming, we focus on capturing authentic moments and genuine emotions. Our team works tirelessly to ensure every frame tells a story.</p>
-          <h3>Post-Production</h3>
-          <p>The magic happens in editing, where we carefully craft each video to maximize emotional impact while maintaining high production quality.</p>
-        `
-      };
-      
-      content.innerHTML = blogContent[blogId] || '<p>Content not found.</p>';
-      modal.style.display = 'block';
-      document.body.style.overflow = 'hidden';
-    }
+<button type="submit">Send Message</button>
+</form>
+<p id="form-status" style="margin-top: 1rem; text-align: center; font-weight: 500;"></p>
 
-    function closeModal() {
-      const modal = document.getElementById('modal');
-      modal.style.display = 'none';
-      document.body.style.overflow = 'auto';
-    }
+<div class="contact-info">
+<h2>Follow Our Journey</h2>
+<p>
+<a href="#" target="_blank">YouTube</a> |
+<a href="#" target="_blank">Instagram</a> |
+<a href="#" target="_blank">Facebook</a>
+</p>
+</div>
+</section>
+</main>
 
-    // Close modal on outside click
-    document.getElementById('modal').addEventListener('click', (e) => {
-      if (e.target.id === 'modal') {
-        closeModal();
-      }
-    });
+<footer>
+<p>© 2025 Ehsaase. All rights reserved.</p>
+</footer>
+</div>
 
-    // Mobile menu toggle
-    function toggleMobileMenu() {
-      const nav = document.querySelector('nav');
-      nav.classList.toggle('mobile-open');
-    }
+<div class="chat-container">
+<div class="chat-bubble" onclick="toggleChat()">
+<img src="https://via.placeholder.com/30x30.png?text=AI" alt="AI Chatbot">
+</div>
+<div class="chat-window" id="chat-window">
+<div class="chat-header">
+AI Support
+</div>
+<div class="chat-messages" id="chat-messages">
+<div class="message bot-message">Hello! I'm your AI assistant. How can I help you today?</div>
+</div>
+<div class="chat-input">
+<input type="text" placeholder="Type your message..." id="chat-input-field">
+<button onclick="sendMessage()">➤</button>
+</div>
+</div>
+</div>
 
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        closeModal();
-      }
-    });
+<script>
+// IMPORTANT: Replace this with your actual webhook URL from Make.com or Zapier.
+const AI_CHAT_WEBHOOK_URL = 'https://hook.us1.make.com/your-webhook-id';
 
-    // Add smooth scrolling to navigation links
-    document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      });
-    });
-  </script>
+// --- Website Animations & Functionality ---
+document.getElementById('landing-page').addEventListener('click', function() {
+const landingPage = this;
+const mainInterface = document.getElementById('main-interface');
+
+landingPage.style.filter = 'blur(10px)';
+landingPage.style.opacity = '0';
+
+setTimeout(() => {
+landingPage.style.display = 'none';
+mainInterface.style.display = 'block';
+setTimeout(() => {
+mainInterface.style.opacity = '1';
+document.body.style.backgroundColor = '#1a1a1a';
+
+const sections = document.querySelectorAll('#main-interface section');
+sections.forEach((section, index) => {
+setTimeout(() => {
+section.classList.add('visible');
+}, index * 200);
+});
+
+history.replaceState(null, '', window.location.pathname + '#home');
+}, 100);
+}, 1000);
+});
+
+document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+anchor.addEventListener('click', function (e) {
+e.preventDefault();
+const targetId = this.getAttribute('href').substring(1);
+const targetElement = document.getElementById(targetId);
+if (targetElement) {
+window.scrollTo({
+top: targetElement.offsetTop - document.querySelector('header').offsetHeight,
+behavior: 'smooth'
+});
+}
+});
+});
+
+// --- AI Support Chat System Functionality ---
+function toggleChat() {
+const chatWindow = document.getElementById('chat-window');
+chatWindow.style.display = chatWindow.style.display === 'flex' ? 'none' : 'flex';
+}
+
+function sendMessage() {
+const inputField = document.getElementById('chat-input-field');
+const message = inputField.value.trim();
+if (message) {
+const messagesContainer = document.getElementById('chat-messages');
+
+// Display user message
+const userMessageDiv = document.createElement('div');
+userMessageDiv.classList.add('message', 'user-message');
+userMessageDiv.textContent = message;
+messagesContainer.appendChild(userMessageDiv);
+
+// Simulate AI response
+const botResponse = "Thank you for your message. A human support representative will get back to you shortly.";
+setTimeout(() => {
+const botMessageDiv = document.createElement('div');
+botMessageDiv.classList.add('message', 'bot-message');
+botMessageDiv.textContent = botResponse;
+messagesContainer.appendChild(botMessageDiv);
+messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}, 1000);
+
+// Send message to webhook
+fetch(AI_CHAT_WEBHOOK_URL, {
+method: 'POST',
+headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify({ message: message, timestamp: new Date().toISOString() })
+})
+.then(response => console.log('AI chat message saved via webhook:', response.status))
+.catch(error => console.error('Error sending AI chat message:', error));
+
+inputField.value = '';
+messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+}
+
+document.getElementById('chat-input-field').addEventListener('keypress', function(event) {
+if (event.key === 'Enter') {
+sendMessage();
+}
+});
+</script>
+
 </body>
 </html>
